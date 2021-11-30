@@ -1,5 +1,8 @@
 import React from 'react';
 
+
+
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   constructor(){
@@ -26,13 +29,9 @@ class App extends React.Component {
     return (
       <div>
         <h1>To-Dos</h1>
-        <ul>
-          {
-            todos.map(todo=> {
-              return (<li> {todo.task} {todo.completed?<span>- completed</span> : <span></span>}</li>)
-            })
-          }
-        </ul>
+
+        <TodoList todos={todos}/>
+
         <form>
           <input />
           <button>Add</button>
