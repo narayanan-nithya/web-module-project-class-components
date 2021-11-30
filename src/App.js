@@ -21,6 +21,50 @@ class App extends React.Component {
       ]
     }
   }
+  
+  handleAdd = (task) => {
+
+    const newTodo = {
+      task: task,
+      id: Date.now(),
+      completed: false
+    };
+
+    //1.set State
+    this.setState({
+      ...this.state,
+    //2. Change todos
+    //3. Make a copy todos
+    //4. Add new Todos to list end
+    todos: [...this.state.todos, newTodo]})
+  }
+  handleClear = () =>{
+    //1.set State
+     //2. loop through all todos.
+    //3. remove completed todos.
+    //4. save filtered todos to state.
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.filter(todo => {
+        return(todo.completed === false);
+      })
+    });
+  }
+
+  handleToggle = (clickedId) =>{
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.map(todo=>{
+        if (todo.id === clickedId){
+          return{
+            ...todo,
+            completed: !todo.completed
+          }
+        }
+        return todo;
+      })
+    });
+  }
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
   render() {
@@ -28,9 +72,9 @@ class App extends React.Component {
     return (
       <div>
         <h1>To-Dos</h1>
-        <TodoList todos={todos}/>
-        <TodoForm />
-        <button>Clear</button>
+        <TodoList  handleToggle={this.handleToggle} todos={todos}/>
+        <TodoForm handleAdd={this.handleAdd} />
+        <button onClick={this.handleClear}>Clear</button>
       </div>
     );
   }
